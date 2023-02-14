@@ -1,0 +1,12 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "nrf-connect",
+			"request": "launch",
+			"name": "Launch build",
+			"config": "/Users/leodim21/Workbanch/Prog_Nordic/adc_spi_led_test_project/study_prj/build",
+			"runToEntryPoint": "main"
+		}
+	]
+}

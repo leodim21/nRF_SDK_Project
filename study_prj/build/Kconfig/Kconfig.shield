@@ -1,0 +1,2 @@
+osource "/Users/leodim21/Workbanch/Prog_Nordic/adc_spi_led_test_project/study_prj/boards/shields/*/Kconfig.shield"
+osource "/opt/nordic/ncs/v2.2.0/nrf/boards/shields/*/Kconfig.shield"
