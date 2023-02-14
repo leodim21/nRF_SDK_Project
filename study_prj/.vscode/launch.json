@@ -5,7 +5,7 @@
 			"type": "nrf-connect",
 			"request": "launch",
 			"name": "Launch build",
-			"config": "/Users/leodim21/Workbanch/Prog_Nordic/adc_spi_led_test_project/study_prj/build",
+			"config": "/Users/leodim21/Git/nRF_SDK_Project/study_prj/build",
 			"runToEntryPoint": "main"
 		}
 	]

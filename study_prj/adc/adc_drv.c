@@ -9,36 +9,38 @@
 #define ADC_REFERENCE       ADC_REF_INTERNAL
 #define ADC_GAIN            ADC_GAIN_1_5
 
-struct adc_channel_cfg ch0_cfg = {
-    .gain               = ADC_GAIN,
-    .reference          = ADC_REFERENCE,
-    .acquisition_time   = ADC_ACQ_TIME_DEFAULT,
-    .channel_id         = ADC_CHANEL,
+static struct local_s
+{
+    struct adc_channel_cfg ch0_cfg;
+    struct adc_sequence    sequence;
+    struct device          *adc_dev;
+    uint16_t               smpl_buf[1];
+}local = {
+    .adc_dev                    = DEVICE_DT_GET(ADC_NODE),
+    .ch0_cfg.gain               = ADC_GAIN,
+    .ch0_cfg.reference          = ADC_REFERENCE,
+    .ch0_cfg.acquisition_time   = ADC_ACQ_TIME_DEFAULT,
+    .ch0_cfg.channel_id         = ADC_CHANEL,
 #if defined(CONFIG_ADC_CONFIGURABLE_INPUTS)
-	.input_positive     = ADC_PORT,
+	.ch0_cfg.input_positive     = ADC_PORT,
 #endif
 };
 
-uint16_t smpl_buf[1];
-struct adc_sequence sequence = {
-    .channels       = BIT(ADC_CHANEL),
-    .buffer         = smpl_buf,
-    .buffer_size    = sizeof(smpl_buf),
-    .resolution     = ADC_RESOLUTION,
-};
-
-static const struct device *adc_dev = DEVICE_DT_GET(ADC_NODE);
-
+/**
+  **************************************************************************************************
+  * @brief      ...
+  **************************************************************************************************
+**/
 void adc_drv_init( void )
 {
     int err;
 
-    if(!device_is_ready(adc_dev))
+    if(!device_is_ready(local.adc_dev))
     {
         return;
     }
 
-    err = adc_channel_setup(adc_dev, &ch0_cfg);
+    err = adc_channel_setup(local.adc_dev, &local.ch0_cfg);
 
     if(err != 0)
     {
@@ -46,11 +48,21 @@ void adc_drv_init( void )
     }
 }
 
+/**
+  **************************************************************************************************
+  * @brief      ...
+  **************************************************************************************************
+**/
 uint16_t adc_drv_read( void )
 {
     int err;
 
-    err = adc_read(adc_dev, &sequence);
+    local.sequence.channels       = BIT(ADC_CHANEL);
+    local.sequence.buffer         = local.smpl_buf;
+    local.sequence.buffer_size    = sizeof(local.smpl_buf);
+    local.sequence.resolution     = ADC_RESOLUTION;
 
-    return smpl_buf[0];
+    err = adc_read(local.adc_dev, &local.sequence);
+
+    return local.smpl_buf[0];
 }
