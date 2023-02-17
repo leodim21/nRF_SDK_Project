@@ -26,6 +26,7 @@
 
 #include <dk_buttons_and_leds.h>
 #include "adc_drv.h"
+#include "spi_drv.h"
 
 #define DEVICE_NAME             CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN         (sizeof(DEVICE_NAME) - 1)
@@ -247,6 +248,7 @@ void main(void)
 	printk("Advertising successfully started\n");
 	
 	adc_drv_init();
+	spi_drv_init();
 	
 	for (;;) {
 		dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
