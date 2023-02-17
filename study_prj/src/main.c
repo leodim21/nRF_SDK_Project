@@ -60,8 +60,9 @@ static void connected(struct bt_conn *conn, uint8_t err)
 
 	printk("Connected\n");
 
+	uint8_t test[] ={0x55, 0x55, 0x55, 0x55, 0x55};
 	uint16_t test_adc_smpl = adc_drv_read();
-	
+	spi_drv_write(test, sizeof(test));
 	printk("ADC smpl = %d\n\r", test_adc_smpl);
 
 	dk_set_led_on(CON_STATUS_LED);
