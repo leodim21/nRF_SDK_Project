@@ -9,18 +9,14 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(NONE)
 
 # NORDIC SDK APP START
-target_sources(app PRIVATE
-  src/main.c
+target_include_directories(app PRIVATE 
+  adc/ 
+  spi/
 )
-
-target_include_directories(app PRIVATE adc/)
 target_sources(app PRIVATE
   adc/adc_drv.c
-)
-
-target_include_directories(app PRIVATE spi/)
-target_sources(app PRIVATE
   spi/spi_drv.c
+  src/main.c
 )
 
 # Preinitialization related to Thingy:53 DFU

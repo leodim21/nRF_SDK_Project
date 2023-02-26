@@ -1,5 +1,6 @@
 
 #include "adc_drv.h"
+#include <zephyr/kernel.h>
 #include <zephyr/drivers/adc.h>
 
 #define ADC_NODE            DT_NODELABEL(adc)

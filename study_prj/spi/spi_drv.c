@@ -1,7 +1,6 @@
 
 #include "spi_drv.h"
-#include <zephyr/device.h>
-#include <zephyr/devicetree.h>
+#include <zephyr/kernel.h>
 #include <zephyr/drivers/spi.h>
 
 #define SPI_NODE	DT_NODELABEL(spi1)
